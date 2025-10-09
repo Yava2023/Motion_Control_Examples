@@ -1,623 +1,309 @@
+# tlmc_core_interface.py — Interface aligned with XASDK after header-based corrections.
+
 from abc import ABCMeta, abstractmethod
-# Interface to describe the functions needed in the SDK
 
 
 class NativeSDKInterface(metaclass=ABCMeta):
+    """Interface for the high-level SDK wrapper."""
 
-    def __init__(self):
-        pass
-
-    @abstractmethod
-    def add_user_message_to_log(self, user_message):
-        pass
-
-    @abstractmethod
-    def close(self, handle):
-        pass
-
-    @abstractmethod
-    def convert_from_device_units_to_physical(self, handle, TLMC_scale_type, device_value):
-        pass
-
-    @abstractmethod
-    def convert_from_physical_to_device(self, handle, TLMC_scale_type, TLMC_unit_type, physical_value):
-        pass
-
-    @abstractmethod
-    def create_simulation(self, pDescription):
-        pass
-
-    @abstractmethod
-    def disconnect(self, handle):
-        pass
-
-    @abstractmethod
-    def get_adc_inputs(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_analog_monitor_configuration_params(self, handle, monitor_number, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_api_version(self):
-        pass
-
-    @abstractmethod
-    def get_aux_io_port_mode(self, handle, port_number, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_aux_io_software_states(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_bow_index(self, handle, index_val, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_connected_product(self, handle):
-        pass
-
-    @abstractmethod
-    def get_connected_product_info(self, handle):
-        pass
-
-    @abstractmethod
-    def get_connected_products_supported(self, handle):
-        pass
-
-    @abstractmethod
-    def get_current_loop_params(self, handle, loop_scenario, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_dc_pid_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_device_info(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_device_list_item_count(self):
-        pass
-
-    @abstractmethod
-    def get_device_list_items(self, source_start_index, number_of_items, pNumber_of_items_copied):
-        pass
-
-    @abstractmethod
-    def get_digital_input_states(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_digital_output_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_enable_state(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_encoder_counter(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_general_move_params(self, handle, general_move_params,
-                                max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_hardware_info(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_home_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_io_configuration_number_of_ports_supported(self, handle):
-        pass
-
-    @abstractmethod
-    def get_io_configuration_params(self, handle, port_number, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_io_position_trigger_enable_state(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_io_trigger_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_joystick_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_kcube_io_trigger_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_kcube_mmi_lock_state(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_kcube_mmi_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_kcube_position_trigger_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_lcd_display_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_lcd_move_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_limit_switch_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_motor_output_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_move_absolute_params(self, absolute_params, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_move_jog_params(self, jog_params, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_move_relative_params(self, handle, move_relative_params, max_wait_in_millisecond):
-        pass
-
-    @abstractmethod
-    def get_position_counter(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_position_loop_params(self, handle, position_loop_scenario, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_power_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_profiled_mode_params(self, handle, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_rack_bay_occupied_state(self, handle, bay_number, occupied_state, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_rich_response(self, handle):
-        pass
-
-    @abstractmethod
-    def get_setting(self, handle, pSettings_name, max_wait_in_milliseconds):
-        pass
-
-    @abstractmethod
-    def get_setting_count(self, handle):
-        pass
-
-    @abstractmethod
-    def get_setting_discrete_values(self, handle, pSettings_name, pBuffer, buffer_length, result_length):
-        pass
-
+    # System / Loader
     @abstractmethod
-    def get_settings(self, handle, source_start_index, number_of_items, pNumber_of_items_copied):
-        pass
-
+    def add_user_message_to_log(self, user_message): ...
+    @staticmethod
     @abstractmethod
-    def get_settings_as_string(self, handle, pBuffer, buffer_length, pResult_length, TLMC_setting_string_format, include_read_only_items):
-        pass
-
+    def startup(settings_file_name: str): ...
+    @staticmethod
     @abstractmethod
-    def get_status_item(self, handle, status_item_id):
-        pass
-
+    def shutdown(): ...
+    @staticmethod
     @abstractmethod
-    def get_status_item_count(self, handle):
-        pass
+    def try_load_library(current_path): ...
 
+    # Open/Close/Disconnect
     @abstractmethod
-    def get_status_items(self, handle, start_index, number_of_items,
-                         pNumber_of_items_copies):
-        pass
-
+    def open(self, device: str, transport: str, operating_mode: int) -> int: ...
     @abstractmethod
-    def get_stage_axis_params(self, handle, max_wait_in_milliseconds):
-        pass
-
+    def close(self, handle): ...
     @abstractmethod
-    def get_stepper_loop_params(self, handle, max_wait_in_milliseconds):
-        pass
+    def disconnect(self, handle): ...
 
+    # Simulation
+    @staticmethod
     @abstractmethod
-    def get_stepper_status(self, handle, max_wait_in_milliseconds):
-        pass
-
+    def create_simulation(description: dict): ...
+    @staticmethod
     @abstractmethod
-    def get_track_settle_params(self, handle, max_wait_in_milliseconds):
-        pass
+    def remove_simulation(description: dict): ...
 
+    # Conversion
     @abstractmethod
-    def get_trigger_params_for_dc_brushless(self, handle, max_wait_in_milliseconds):
-        pass
-
+    def convert_from_device_units_to_physical(self, handle, tlmc_scale_type, device_value): ...
     @abstractmethod
-    def get_trigger_params_for_stepper(self, handle, max_wait_in_milliseconds):
-        pass
+    def convert_from_physical_to_device(self, handle, tlmc_scale_type, tlmc_unit_type, physical_value): ...
 
+    # Device list / info / settings
     @abstractmethod
-    def get_universal_status(self, handle, max_wait_in_milliseconds):
-        pass
-
+    def get_device_list_item_count(self): ...
     @abstractmethod
-    def get_universal_status_bits(self, handle, max_wait_in_milliseconds):
-        pass
-
+    def get_device_list_items(self, source_start_index, number_of_items): ...
     @abstractmethod
-    def get_velocity_params(self, handle, velocity_params, max_wait_in_milliseconds):
-        pass
-
+    def get_device_info(self, handle): ...
     @abstractmethod
-    def home(self, max_wait_in_milliseconds):
-        pass
-
+    def get_connected_product(self, handle): ...
     @abstractmethod
-    def identify(self):
-        pass
-
+    def get_connected_product_info(self, handle): ...
     @abstractmethod
-    def move_absolute(self, handle, move_mode, position, max_wait_in_milliseconds):
-        pass
-
+    def get_connected_products_supported(self, handle, buffer_length=256): ...
     @abstractmethod
-    def move_continuous(self, handle, direction, max_wait_in_milliseconds):
-        pass
-
+    def get_setting(self, handle, settings_name, max_wait_in_milliseconds): ...
     @abstractmethod
-    def move_jog(self, handle, direction, max_wait_in_milliseconds):
-        pass
-
+    def get_setting_count(self, handle): ...
     @abstractmethod
-    def move_relative(self, handle, move_mode, distance, max_wait_in_milliseconds):
-        pass
-    
+    def get_setting_discrete_values(self, handle, settings_name, buffer_length=1024): ...
     @abstractmethod
-    def open(self, handle, transport_type, operating_mode):
-        pass
-
+    def get_settings(self, handle, source_start_index, number_of_items): ...
     @abstractmethod
-    def persist_params(self, handle, parameter_group_id):
-        pass
-
+    def get_settings_as_string(self, handle, buffer_length, tlmc_setting_string_format, include_read_only_items): ...
     @abstractmethod
-    def pz_get_max_output_voltage_params(self, handle, max_wait_in_milliseconds):
-        pass
-
+    def set_setting(self, handle, settings_name, tlmc_value): ...
     @abstractmethod
-    def pz_get_max_travel(self, handle, max_wait_in_milliseconds):
-        pass
-
+    def set_settings_from_string(self, handle, settings_json): ...
     @abstractmethod
-    def pz_get_output_voltage(self, handle, max_wait_in_milliseconds):
-        pass
-
+    def set_connected_product(self, handle, product_name: str): ...
     @abstractmethod
-    def pz_get_output_voltage_control_source_params(self, handle, max_wait_in_milliseconds):
-        pass
+    def set_connected_product_info(
+            self,
+            handle,
+            product_name: str,
+            axis_type: int,
+            movement_type: int,
+            unit_type: int,
+            distance_scale_factor: float,
+            velocity_scale_factor: float,
+            acceleration_scale_factor: float,
+            min_position: float,
+            max_position: float,
+            max_velocity: float,
+            max_acceleration: float,
+    ): ...
 
+    # Status
     @abstractmethod
-    def pz_get_output_waveform_params(self, handle, max_wait_in_millisecconds):
-        pass
-
+    def get_status_item(self, handle, status_item_id): ...
     @abstractmethod
-    def pz_get_position(self, handle, position, max_wait_in_milliseconds):
-        pass
-
+    def get_status_item_count(self, handle): ...
     @abstractmethod
-    def pz_get_position_control_mode(self, handle, control_mode, max_wait_in_milliseconds):
-        pass
+    def get_status_items(self, handle, start_index, number_of_items): ...
 
+    # Motion / General parameters
     @abstractmethod
-    def pz_get_position_loop_params(self, handle, max_wait_in_milliseconds):
-        pass
-
+    def get_adc_inputs(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def pz_get_slew_rate_params(self, handle, slew_rate_params, max_wait_in_milliseconds):
-        pass
-
+    def get_aux_io_port_mode(self, handle, port_number, max_wait_in_milliseconds): ...
     @abstractmethod
-    def pz_get_status(self, handle, max_wait_in_milliseconds):
-        pass
-
+    def set_aux_io_port_mode(self, handle, port_numbers_mask, new_mode): ...
     @abstractmethod
-    def pz_get_status_bits(self, handle, max_wai_milliseconds):
-        pass
-
+    def get_aux_io_software_states(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def pz_set_max_output_voltage(self, handle, max_output_voltage):
-        pass
-
+    def set_aux_io_software_states(self, handle, new_state): ...
     @abstractmethod
-    def pz_set_output_voltage(self, handle, new_output_voltage):
-        pass
-    
+    def get_bow_index(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def pz_set_output_voltage_control_source_params(self, handle, voltage_source):
-        pass
-
+    def set_bow_index(self, handle, new_bow_index): ...
     @abstractmethod
-    def pz_set_output_waveform_lookup_table_sample(self, handle, index, voltage):
-        pass
-
+    def get_current_loop_params(self, handle, loop_scenario, max_wait_in_milliseconds): ...
     @abstractmethod
-    def pz_set_output_waveform_params(self, handle, mode, num_of_samples_per_cycle,
-                                      num_of_cycles, sample_delay, pre_cycle_delay,
-                                      post_cycle_delay, output_trigger_start_index,
-                                      output_trigger_width, num_of_samples_between_triggers):
-        pass
-
+    def set_current_loop_params(self, handle, loop_scenario, phase, proportional, integral, integral_limit, integral_dead_band, feed_fwrd): ...
     @abstractmethod
-    def pz_set_position(self, handle, new_position):
-        pass
-
+    def get_dc_pid_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def pz_set_position_control_mode(self, handle, new_control_mode):
-        pass
-
+    def set_dc_pid_params(self, handle, proportional, integral, derivative, integral_limit, filter_control): ...
     @abstractmethod
-    def pz_set_position_loop_params(self, handle, proportional, integral):
-        pass
-
+    def get_digital_input_states(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def pz_set_slew_rate_params(self, handle, open_slew_rate, closed_slew_rate):
-        pass
-
+    def get_digital_output_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def pz_set_zero(self, handle, max_wait_in_milliseconds):
-        pass
-
+    def set_digital_output_params(self, handle, new_output_state): ...
     @abstractmethod
-    def pz_start_output_waveform(self, handle):
-        pass
-
+    def get_enable_state(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def pz_stop_output_waveform(self, handle):
-        pass
-
+    def set_enable_state(self, handle, enable_state): ...
     @abstractmethod
-    def rack_identify(self, handle, channel):
-        pass
-
+    def get_encoder_counter(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def remove_simulation(self, pDescription):
-        pass
-
+    def set_encoder_counter(self, handle, new_encoder_counter): ...
     @abstractmethod
-    def restore_to_factory_defaults(self, handle):
-        pass
-
+    def get_general_move_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_analog_monitor_configuration_params(self, handle, monitor_number, motor_channel, system_variable, scale, offset):
-        pass
-
+    def set_general_move_params(self, handle, backlash_distance): ...
     @abstractmethod
-    def set_aux_io_port_mode(self, handle, port_number, new_mode):
-        pass
-
+    def get_hardware_info(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_aux_io_software_states(self, handle, new_state):
-        pass
-
+    def get_home_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_bow_index(self, handle, new_bow_index):
-        pass
-
+    def set_home_params(self, handle, direction, limit_switch, velocity, offset_distance): ...
     @abstractmethod
-    def set_connected_product(self, handle, product_name):
-        pass
-
+    def get_io_configuration_number_of_ports_supported(self, handle): ...
     @abstractmethod
-    def set_connected_product_info(self, handle, product_name, axis_type, movement_type, unit_type,
-                                   distance_scale_factor, velocity_scale_factor,
-                                   acceleration_scale_factor, min_position, max_position,
-                                   max_velocity, max_acceleration):
-        pass
-
+    def get_io_configuration_params(self, handle, port_number, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_current_loop_params(self, handle, loop_scenario, phase, proportional, integral,
-                                integral_limit, integral_dead_band, feed_fwrd):
-        pass
-
+    def set_io_configuration_params(self, handle, port_number, mode, trigger_out_source): ...
     @abstractmethod
-    def set_dc_pid_params(self, handle, proportional, integral, derivative, integral_limit, filter_control):
-        pass
-
+    def get_io_position_trigger_enable_state(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_digital_output_params(self, handle, new_output_state):
-        pass
-
+    def set_io_position_trigger_enable_state(self, handle, new_enable_state, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_enable_state(self, handle, enable_state):
-        pass
-
+    def get_io_trigger_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_encoder_counter(self, handle, new_encoder_counter):
-        pass
-
+    def set_io_trigger_params(self, handle, *args): ...
     @abstractmethod
-    def set_end_of_message_mode(self, handle, mode):
-        pass
-
+    def get_jog_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_general_move_params(self, handle, backlash_distance):
-        pass
-
+    def set_jog_params(self, handle, jog_mode, step_size, min_velocity, max_velocity, acceleration, stop_mode): ...
     @abstractmethod
-    def set_home_params(self, handle, direction, limit_switch, velocity, offset_distance):
-        pass
-
+    def get_joystick_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_io_configuration_params(self, handle, port_number, mode, trigger_out_source):
-        pass
-
+    def set_joystick_params(self, handle, low_gear_velocity, high_gear_velocity, low_gear_acceleration, high_gear_acceleration, direction_sense): ...
     @abstractmethod
-    def set_io_position_trigger_enable_state(self, handle, new_enable_state, max_wait_in_milliseconds):
-        pass
-
+    def get_kcube_io_trigger_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_io_trigger_params(self, handle, trigger_in_mode, trigger_in_polarity,
-                              trigger_in_source, trigger_out_mode, trigger_out_polarity,
-                              trigger_out_forward_start_position, trigger_out_forward_interval,
-                              trigger_out_forward_number_of_pulses, trigger_out_reverse_start_position,
-                              trigger_out_reverse_interval, trigger_out_reverse_number_of_pulses,
-                              trigger_out_pulse_width, trigger_out_number_of_cycles):
-        pass
-
+    def set_kcube_io_trigger_params(self, handle, trigger_one_mode, trigger_one_polarity, trigger_two_mode, trigger_two_polarity): ...
     @abstractmethod
-    def set_joystick_params(self, handle, low_gear_velocity, high_gear_velocity, low_gear_acceleration, high_gear_acceleration, direction_sense):
-        pass
-
+    def get_kcube_mmi_lock_state(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_kcube_io_trigger_params(self, handle, trigger_one_mode, trigger_one_polarity,
-                                    trigger_two_mode, trigger_two_polarity):
-        pass
-
+    def set_kcube_mmi_lock_state(self, handle, lock_state): ...
     @abstractmethod
-    def set_kcube_mmi_lock_state(self, handle, lock_state):
-        pass
-
+    def get_kcube_mmi_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
     def set_kcube_mmi_params(self, handle, joystick_mode, joystick_velocity, joystick_acceleration,
                              joystick_direction_sense, position_one, position_two,
                              display_brightness, display_timeout, display_dim_level,
-                             position_three, joystick_sensitivity):
-        pass
-
+                             position_three, joystick_sensitivity): ...
     @abstractmethod
-    def set_kcube_position_trigger_params(self, handle, fwrd_start_position, fwrd_interval,
-                                          fwrd_number_of_pulses, rev_start_position,
-                                          rev_interval, rev_number_of_pulses, pulse_width,
-                                          number_of_cycles):
-        pass
-
+    def get_kcube_position_trigger_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_lcd_display_params(self, handle, knob_sensitivity, display_brightness, display_timeout,
-                               display_dim_level):
-        pass
-
+    def set_kcube_position_trigger_params(self, handle, *args): ...
     @abstractmethod
-    def set_lcd_move_params(self, handle, knob_mode, jog_step_size, acceleration,
-                            max_velocity, jog_stop_mode, preset_position):
-        pass
-
+    def get_lcd_display_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_limit_switch_params(self, handle, clockwise_limit_mode, counter_clockwise_limit_mode,
-                                clockwise_soft_limit, counter_clockwise_soft_limit, soft_limit_operating_mode):
-        pass
-
+    def set_lcd_display_params(self, handle, knob_sensitivity, display_brightness, display_timeout, display_dim_level): ...
     @abstractmethod
-    def set_motor_output_params(self, handle, current_limit, energy_limit, motor_limit, motor_bias):
-        pass
-
+    def get_lcd_move_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_move_absolute_params(self, absolute_distance):
-        pass
-
+    def set_lcd_move_params(self, handle, knob_mode, jog_step_size, acceleration, max_velocity, jog_stop_mode, preset_position): ...
     @abstractmethod
-    def set_move_jog_params(self, handle, jog_mode, step_size, min_velcoity, max_velocity, acceleration, stop_mode, direction_sense):
-        pass
-
+    def get_limit_switch_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_move_relative_params(self, handle, move_relative_distance):
-        pass
-
+    def set_limit_switch_params(self, handle, clockwise_limit_mode, counter_clockwise_mode, clockwise_soft_limit, counter_clockwise_soft_limit, soft_limit_operating_mode): ...
     @abstractmethod
-    def set_position_counter(self, handle, new_position_counter):
-        pass
-
+    def get_motor_output_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_position_loop_params(self, handle, position_loop_scenario, proportional, integral, integral_limit,
-                                 derivative, servo_cycles, scale, velocity_feed_fwrd,
-                                 acceleration_feed_fwrd, error_limit):
-        pass
-
+    def set_motor_output_params(self, handle, current_limit, energy_limit, motor_limit, motor_bias): ...
     @abstractmethod
-    def set_power_params(self, handle, rest_factor, move_factor):
-        pass
-
+    def get_move_absolute_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_profiled_mode_params(self, handle, mode, jerk):
-        pass
-
+    def set_move_absolute_params(self, handle, absolute_position): ...
     @abstractmethod
-    def set_setting(self, handle, pSettings_name):
-        pass
-
+    def get_move_relative_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_settings_from_string(self, handle, pSettings_name):
-        pass
-
+    def set_move_relative_params(self, handle, relative_distance): ...
     @abstractmethod
-    def set_stage_axis_params(self, handle, type_id, axis_id, part_number, serial_number,
-                              counts_per_unit, min_position, max_position,
-                              max_acceleration, max_decceleration, max_velcoity,
-                              gear_box_ratio):
-        pass
-
+    def get_position_counter(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_status_mode(self, handle, operating_mode):
-        pass
-
+    def set_position_counter(self, handle, new_position_counter): ...
     @abstractmethod
-    def set_stepper_loop_params(self, handle, loop_mode, proportional, integral,
-                                differential, output_clip, output_tolerance,
-                                microsteps_per_ecount):
-        pass
-
+    def get_position_loop_params(self, handle, position_loop_scenario, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_track_settle_params(self, handle, settle_time, settle_window, track_window):
-        pass
-
+    def set_position_loop_params(self, handle, position_loop_scenario, proportional, integral, integral_limit, derivative, servo_cycles, scale, velocity_feed_fwrd, acceleration_feed_fwrd, error_limit): ...
     @abstractmethod
-    def set_trigger_params_for_for_dc_brushless(self, handle, mode):
-        pass
-
+    def get_power_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def set_trigger_params_for_stepper(self, handle, trigger_mode):
-        pass
-
+    def set_power_params(self, handle, rest_factor, move_factor): ...
     @abstractmethod
-    def set_velocity_params(self, min_velocity, max_velocity, acceleration):
-        pass
-
+    def get_profiled_mode_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def shutdown(self):
-        pass
-
+    def set_profiled_mode_params(self, handle, mode, jerk): ...
     @abstractmethod
-    def startup(self, pSettings_file_name):
-        pass
-
+    def get_velocity_params(self, handle, max_wait_in_milliseconds): ...
     @abstractmethod
-    def stop(self, handle, stop_mode, max_wait_in_milliseconds):
-        pass
-
+    def set_velocity_params(self, handle, min_velocity, acceleration, max_velocity): ...
     @abstractmethod
-    def try_load_library(self, current_path):
-        pass
+    def get_universal_status(self, handle, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def get_universal_status_bits(self, handle, max_wait_in_milliseconds): ...
+
+    # PZ
+    @abstractmethod
+    def pz_get_max_output_voltage_params(self, handle, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def pz_set_max_output_voltage(self, handle, max_output_voltage): ...
+    @abstractmethod
+    def pz_get_max_travel(self, handle, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def pz_get_output_voltage(self, handle, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def pz_set_output_voltage(self, handle, new_output_voltage): ...
+    @abstractmethod
+    def pz_get_output_voltage_control_source_params(self, handle, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def pz_set_output_voltage_control_source_params(self, handle, source): ...
+    @abstractmethod
+    def pz_set_output_waveform_lookup_table_sample(self, handle, index, voltage): ...
+    @abstractmethod
+    def pz_get_output_waveform_params(self, handle, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def pz_set_output_waveform_params(self, handle, *args): ...
+    @abstractmethod
+    def pz_start_output_waveform(self, handle): ...
+    @abstractmethod
+    def pz_stop_output_waveform(self, handle): ...
+    @abstractmethod
+    def pz_get_position(self, handle, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def pz_set_position(self, handle, new_position): ...
+    @abstractmethod
+    def pz_get_position_control_mode(self, handle, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def pz_set_position_control_mode(self, handle, new_control_mode): ...
+    @abstractmethod
+    def pz_get_position_loop_params(self, handle, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def pz_set_position_loop_params(self, handle, proportional, integral): ...
+    @abstractmethod
+    def pz_get_slew_rate_params(self, handle, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def pz_set_slew_rate_params(self, handle, open_slew_rate, closed_slew_rate): ...
+    @abstractmethod
+    def pz_get_status(self, handle, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def pz_get_status_bits(self, handle, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def pz_set_zero(self, handle, max_wait_in_milliseconds): ...
+
+    # Motion commands
+    @abstractmethod
+    def home(self, handle, wait_timeout): ...
+    @abstractmethod
+    def identify(self, handle): ...
+    @abstractmethod
+    def move_absolute(self, handle, move_mode, position, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def move_continuous(self, handle, direction, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def move_jog(self, handle, direction, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def move_relative(self, handle, move_mode, step_size, max_wait_in_milliseconds): ...
+    @abstractmethod
+    def stop(self, handle, stop_mode, max_wait_in_milliseconds): ...
+
+    # Misc
+    @abstractmethod
+    def persist_params(self, handle, parameter_group_id): ...
+    @abstractmethod
+    def restore_to_factory_defaults(self, handle): ...
+    @abstractmethod
+    def get_rich_response(self, handle): ...
+    @abstractmethod
+    def set_end_of_message_mode(self, handle, mode): ...
+    @abstractmethod
+    def set_status_mode(self, handle, operating_mode): ...

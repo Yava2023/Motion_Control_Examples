@@ -17,13 +17,12 @@ from xa_sdk.native_sdks.xa_sdk import XASDK  # type: ignore
 def main():
     try:
         # Create XASDK object and startup XA system.
-        __file__ = "./tlmc_xa_native.dll"
-        XASDK.try_load_library(__file__)
+        XASDK.try_load_library(r"")
         XASDK.startup("")
 
         # Create device object and enable channel. 
         device = KDC101("27007297", "", TLMC_OperatingModes.Default)
-        device.set_enable_state(TLMC_ChannelEnableStates.ChannelEnabled)
+        device.set_enable_state(TLMC_EnableStates.TLMC_Enabled)
         
         # Get Connected controller part number and available methods.
         print("Device part number is:", device.get_hardware_info(TLMC_Wait.TLMC_InfiniteWait))

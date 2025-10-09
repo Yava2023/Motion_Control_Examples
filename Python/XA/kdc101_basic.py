@@ -8,20 +8,21 @@ XA software version: 1.2.7
 
 import time
 
-from xa_sdk.products.kdc101 import KDC101
-from xa_sdk.shared.xa_error_factory import XADeviceException
-from xa_sdk.shared.tlmc_type_structures import *
-from xa_sdk.native_sdks.xa_sdk import XASDK
+from xa_sdk.products.kdc101 import KDC101  # type: ignore
+from xa_sdk.shared.xa_error_factory import XADeviceException  # type: ignore
+from xa_sdk.shared.tlmc_type_structures import *  # type: ignore
+from xa_sdk.native_sdks.xa_sdk import XASDK  # type: ignore
 
 
 def main():
     try:
-        # Create XASDK object and startup XA system. 
+        # Create XASDK object and startup XA system.
+        __file__ = "./tlmc_xa_native.dll"
         XASDK.try_load_library(__file__)
         XASDK.startup("")
 
         # Create device object and enable channel. 
-        device = KDC101("27006239", "", TLMC_OperatingModes.Default)
+        device = KDC101("27007297", "", TLMC_OperatingModes.Default)
         device.set_enable_state(TLMC_ChannelEnableStates.ChannelEnabled)
         
         # Get Connected controller part number and available methods.
@@ -39,8 +40,8 @@ def main():
         print("New converted value is:", new_val.converted_value, "Unit:", new_val.unit)
         
         # Preform home and moves. 
-        device.home(TLMC_Wait.TLMC_InfiniteWait)
-        device.move_absolute(TLMC_MoveModes.MoveMode_Absolute, new_val.converted_value, TLMC_Wait.TLMC_InfiniteWait)
+        # device.home(TLMC_Wait.TLMC_InfiniteWait)
+        # device.move_absolute(TLMC_MoveModes.MoveMode_Absolute, new_val.converted_value, TLMC_Wait.TLMC_InfiniteWait)
         print(device.get_move_absolute_params(TLMC_Wait.TLMC_InfiniteWait).absolute_position)
         print("New current position is:", device.get_position_counter(TLMC_Wait.TLMC_InfiniteWait))
 

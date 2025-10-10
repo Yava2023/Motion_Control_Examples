@@ -1,19 +1,22 @@
 import time
 
-from xa_sdk.products.kdc101 import KDC101  # type: ignore
-from xa_sdk.shared.xa_error_factory import XADeviceException  # type: ignore
-from xa_sdk.shared.tlmc_type_structures import *  # type: ignore
-from xa_sdk.native_sdks.xa_sdk import XASDK  # type: ignore
+from xa_sdk.products.kdc101_simple import SimpleKDC101  # type: ignore
 
-XASDK.try_load_library("")
-XASDK.startup("")
+SimpleKDC101.initialize_sdk("")
 
-sn_number = "27007297"
+sn_number_yaw = "27007297" #yaw
+sn_number_pitch = "27271036"
 
-device = KDC101(sn_number, "", TLMC_OperatingModes.Default)
+yaw_device = SimpleKDC101(sn_number_yaw)
+pitch_device = SimpleKDC101(sn_number_pitch)
 
-# device.set_enable_state(TLMC_ChannelEnableStates.ChannelEnabled)
+#homing
+yaw_device.home()
+pitch_device.home()
 
-# device.home(TLMC_Wait.TLMC_InfiniteWait)
+#close connection
+yaw_device.close()
+pitch_device.close()
 
-# print(device.get_connected_product_info())
+# close sdk
+SimpleKDC101.shutdown_sdk()

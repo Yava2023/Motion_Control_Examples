@@ -1,0 +1,10 @@
+[project]
+name = "thorlabs-motion-control"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "mypy>=1.11",
+    "numpy==2.3.3",
+    "pyserial==3.5",
+]

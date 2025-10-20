@@ -235,29 +235,6 @@ class SimpleKDC101:
         """
         return self.to_device_units(mm, TLMC_ScaleType.TLMC_ScaleType_Distance, TLMC_Unit.TLMC_Unit_Millimetres)
 
-    def to_degrees(self, device_units: int) -> float:
-        """
-        Convert device units to degrees (convenience method).
-
-        Args:
-            device_units: Position in device units
-
-        Returns:
-            Position in degrees
-        """
-        return self.to_physical_units(device_units, TLMC_ScaleType.TLMC_ScaleType_Distance)
-
-    def from_degrees(self, degrees: float) -> int:
-        """
-        Convert degrees to device units (convenience method).
-
-        Args:
-            degrees: Position in degrees
-
-        Returns:
-            Position in device units
-        """
-        return self.to_device_units(degrees, TLMC_ScaleType.TLMC_ScaleType_Distance, TLMC_Unit.TLMC_Unit_Degrees)
 
     # ==================== Homing ====================
 
@@ -295,16 +272,6 @@ class SimpleKDC101:
         device_pos = self.get_position()
         return self.to_mm(device_pos)
 
-    def get_position_degrees(self) -> float:
-        """
-        Get current motor position in degrees.
-
-        Returns:
-            Current position in degrees
-        """
-        device_pos = self.get_position()
-        return self.to_degrees(device_pos)
-
     def move_to(self, position: int, wait: bool = True):
         """
         Move to absolute position in device units.
@@ -339,17 +306,6 @@ class SimpleKDC101:
         device_units = self.from_mm(position_mm)
         self.move_to(device_units, wait)
 
-    def move_to_degrees(self, position_deg: float, wait: bool = True):
-        """
-        Move to absolute position in degrees.
-
-        Args:
-            position_deg: Target position in degrees
-            wait: If True, block until move completes
-        """
-        device_units = self.from_degrees(position_deg)
-        self.move_to(device_units, wait)
-
     def move_by(self, distance: int, wait: bool = True):
         """
         Move by relative distance in device units.
@@ -382,17 +338,6 @@ class SimpleKDC101:
             wait: If True, block until move completes
         """
         device_units = self.from_mm(distance_mm)
-        self.move_by(device_units, wait)
-
-    def move_by_degrees(self, distance_deg: float, wait: bool = True):
-        """
-        Move by relative distance in degrees.
-
-        Args:
-            distance_deg: Distance to move (positive or negative) in degrees
-            wait: If True, block until move completes
-        """
-        device_units = self.from_degrees(distance_deg)
         self.move_by(device_units, wait)
 
     def jog_forward(self, wait: bool = False):
@@ -550,16 +495,6 @@ class SimpleKDC101:
             step_size_mm: Step size in mm
         """
         device_units = self.from_mm(step_size_mm)
-        self.set_jog_step(device_units)
-
-    def set_jog_step_degrees(self, step_size_deg: float):
-        """
-        Set the jog step size in degrees.
-
-        Args:
-            step_size_deg: Step size in degrees
-        """
-        device_units = self.from_degrees(step_size_deg)
         self.set_jog_step(device_units)
 
     # ==================== Status ====================

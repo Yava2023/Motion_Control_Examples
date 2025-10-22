@@ -15,6 +15,9 @@ from xa_sdk.shared.tlmc_type_structures import (
     TLMC_MoveDirection,
     TLMC_ScaleType,
     TLMC_Unit,
+    TLMC_HomeParams,
+    TLMC_HomeDirections,
+    TLMC_HomeLimitSwitches
 )
 
 
@@ -92,7 +95,7 @@ class SimpleKDC101:
     def __init__(
             self,
             serial_number: str,
-            timeout_ms: int = 30000,
+            timeout_ms: int = 60000,
             auto_enable: bool = False
     ):
         """
@@ -247,6 +250,53 @@ class SimpleKDC101:
         """
         timeout = self.timeout_ms if wait else 0
         self._device.native_api.home(self._device.device_handle, timeout)
+
+    def get_home_params(self, wait: bool = True) -> TLMC_HomeParams:
+        """
+        Gets the home parameters of the device.
+
+        This method retrieves the home parameters from the device using its native API. The
+        `wait` parameter determines the behavior of the timeout for the operation.
+
+        Parameters:
+        wait (bool): If True, the method uses the `timeout_ms` value for the operation;
+                     otherwise, it sets the timeout to 0.
+
+        Returns:
+        The home parameters obtained from the device.
+
+        Raises:
+        Any exceptions raised by the device native API are propagated.
+        """
+        timeout = self.timeout_ms if wait else 0
+        return self._device.native_api.get_home_params(self._device.device_handle, timeout)
+
+    def set_home_params(self, velocity, offset, home_direction_backwards = True, home_limit_switch_reverse = True, ):
+        """
+        Sets the home parameters for the device.
+
+        This method configures the parameters used for the homing procedure of the
+        device. It adjusts settings like velocity, offset, homing direction, and
+        whether the home limit switch is reversed. For velocity and offset the device units are used.
+
+        Parameters:
+            velocity (float): The speed of the homing procedure.
+            offset (float): The offset value to apply during homing.
+            home_direction_backwards (bool, optional): Indicates whether the homing
+                direction is backwards. Defaults to True.
+            home_limit_switch_reverse (bool, optional): Indicates whether the home
+                limit switch is reversed. Defaults to True.
+        """
+        if home_direction_backwards:
+            home_direction = 2
+        else:
+            home_direction = 1
+        if home_limit_switch_reverse:
+            home_limit_switch = 1
+        else:
+            home_limit_switch = 4
+        self._device.native_api.set_home_params(self._device.device_handle, velocity, offset, home_direction,
+                                                home_limit_switch)
 
     # ==================== Position Control ====================
 
@@ -533,6 +583,11 @@ class SimpleKDC101:
         """
         info = self._device.native_api.get_device_info(self._device.device_handle)
         return f"Model: {info.modelNumber.decode()}, S/N: {info.serialNumber.decode()}"
+
+    # =============== Connected Product Information ===============
+
+    def get_connected_product_info(self):
+        return self._device.native_api.get_connected_product_info(self._device.device_handle)
 
     # ==================== Convenience Methods ====================
 
